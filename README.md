@@ -1,4 +1,4 @@
-# Notebook Explorer App Project
+# Notebooks Explorer App Project
 
 ## Descripción
 Este proyecto es una aplicación de exploración de productos de notebooks desarrollada en Flutter.
