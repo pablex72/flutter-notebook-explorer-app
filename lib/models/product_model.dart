@@ -1,19 +1,34 @@
 import 'dart:ffi';
 
-class UserModel {
+class ProductModel {
   final String id;
   final String title;
   final String price;
   final String description;
   final String imageProduct;
-  UserModel(
+  ProductModel(
       {required this.id,
       required this.title,
       required this.price,
       required this.description,
       required this.imageProduct});
 
-  factory UserModel.fromJson(Map<String, dynamic> json) {
+
+
+    // Define el método toMap para convertir ProductModel a Map
+  Map<String, dynamic> toMap() {
+    return {
+      'id': id,
+      'title': title,
+      'price': price,
+      'description': description,
+      'imageProduct': imageProduct,
+    };
+  }
+
+
+
+  factory ProductModel.fromJson(Map<String, dynamic> json) {
     // Obtener la lista de atributos del producto
     List<dynamic> attributes = json['attributes'];
 
@@ -23,12 +38,11 @@ class UserModel {
       orElse: () => null,
     );
 
-    // Obtener el valor de 'value_name' del atributo 'BRAND' si existe
     String brandName =
         brandAttribute != null ? brandAttribute['value_name'] : 'Brand Name';
 
     //for filter --> brandName
-    return UserModel(
+    return ProductModel(
       id: json['id'],
       title: json['title'] ?? 'Title Product',
       price: "${json['price']} USD",

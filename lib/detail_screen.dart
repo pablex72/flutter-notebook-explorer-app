@@ -3,7 +3,7 @@ import 'package:flutter_application_notebooks/models/user_model.dart';
 
 class DetailScreen extends StatelessWidget {
   const DetailScreen({Key? key, required this.e}) : super(key: key);
-  final UserModel e;
+  final ProductModel e;
 
   @override
   Widget build(BuildContext context) {

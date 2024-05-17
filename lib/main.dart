@@ -19,7 +19,7 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       theme: ThemeData(primarySwatch: Colors.green),
       home: RepositoryProvider(
-        create: (context) => UserRepository(),
+        create: (context) => ProductRepository(),
         child: const Home(),
       ),
     );
@@ -32,60 +32,90 @@ class Home extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
-      create: (context) => UserBloc(
-        RepositoryProvider.of<UserRepository>(context),
-      )..add(LoadUserEvent()),
+      create: (context) => ProductBloc(
+        RepositoryProvider.of<ProductRepository>(context),
+      )..add(LoadProductEvent()),
       child: Scaffold(
         appBar: AppBar(
           title: const Text("Notebooks Product Explorer v1"),
         ),
-        body: BlocBuilder<UserBloc, UserState>(
+        body: BlocBuilder<ProductBloc, ProductState>(
           builder: (context, state) {
-            if (state is UserLoadingState) {
+            if (state is ProductLoadingState) {
               return const Center(
                 child: CircularProgressIndicator(),
               );
             }
 
-            if (state is UserLoadedState) {
-              List<UserModel> userList = state.users;
-              return ListView.builder(
-                  itemCount: userList.length,
-                  itemBuilder: (_, index) {
-                    return Padding(
-                        padding: const EdgeInsets.symmetric(horizontal: 10),
-                        child: InkWell(
-                          onTap: (){
-                            Navigator.of(context).push(
-                             MaterialPageRoute(
-                              builder: (context) => DetailScreen(
-                              e: userList[index],
-                             )) 
-                            );
-                          },
-                        child: Card(
-                          color: Colors.blue,
-                          elevation: 4,
-                          margin: const EdgeInsets.symmetric(vertical: 10),
-                          child: ListTile(
-                            title: Text(
-                              userList[index].price,
-                              style: const TextStyle(color: Colors.white),
-                            ),
-                            subtitle: Text(
-                              userList[index].title,
-                              style: const TextStyle(color: Colors.white),
-                            ),
-                            trailing: CircleAvatar(
-                              backgroundImage:
-                                  NetworkImage(userList[index].imageProduct),
-                            ),
-                          ),
-                        )));
-                  });
+            if (state is ProductLoadedState) {
+              List<ProductModel> productList = state.products;
+              return Padding(
+                padding: const EdgeInsets.all(10.0),
+                child: Column(
+                  children: [
+                    const SizedBox(
+                      height: 20,
+                    ),
+                    TextField(
+                      onChanged: (value) {
+                        String searchText = value.toLowerCase();
+                        // Filtrar la lista de usuarios en función del criterio de búsqueda
+                        context
+                            .read<ProductBloc>()
+                            .add(ApplySearchFilterEvent(filter: searchText));
+                      },
+                      decoration: InputDecoration(
+                          labelText: 'Search', suffixIcon: Icon(Icons.search)),
+                    ),
+                    const SizedBox(
+                      height: 20,
+                    ),
+                    Expanded(
+                      child: ListView.builder(
+                          itemCount: productList.length,
+                          itemBuilder: (_, index) {
+                            return Padding(
+                                padding:
+                                    const EdgeInsets.symmetric(horizontal: 10),
+                                child: InkWell(
+                                    onTap: () {
+                                      Navigator.of(context).push(
+                                          MaterialPageRoute(
+                                              builder: (context) =>
+                                                  DetailScreen(
+                                                    e: productList[index],
+                                                  )));
+                                    },
+                                    child: Card(
+                                      color: Colors.blue,
+                                      elevation: 4,
+                                      margin: const EdgeInsets.symmetric(
+                                          vertical: 10),
+                                      child: ListTile(
+                                        title: Text(
+                                          productList[index].price,
+                                          style: const TextStyle(
+                                              color: Colors.white),
+                                        ),
+                                        subtitle: Text(
+                                          productList[index].title,
+                                          style: const TextStyle(
+                                              color: Colors.white),
+                                        ),
+                                        trailing: CircleAvatar(
+                                          backgroundImage: NetworkImage(
+                                              productList[index].imageProduct),
+                                        ),
+                                      ),
+                                    )));
+                          }),
+                    ),
+                  ],
+                ),
+              );
             }
 
-            if(state is UserErrorState){
+            if (state is ProductErrorState) {
               return Center(child: Text("Error"));
             }
 
@@ -96,4 +126,3 @@ class Home extends StatelessWidget {
     );
   }
 }
-

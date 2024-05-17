@@ -3,24 +3,24 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter_application_notebooks/models/user_model.dart';
 
 @immutable
-abstract class UserState extends Equatable {}
+abstract class ProductState extends Equatable {}
 // the initial state, need each class for each state
 //data loading state
-class UserLoadingState extends UserState {
+class ProductLoadingState extends ProductState {
   @override
   List<Object> get props => [];
 }
 
-class UserLoadedState extends UserState {
-  UserLoadedState(this.users);
-  final List<UserModel> users;
+class ProductLoadedState extends ProductState {
+  ProductLoadedState(this.products);
+  final List<ProductModel> products;
 
   @override
-  List<Object> get props => [users];
+  List<Object> get props => [products];
 }
 
-class UserErrorState extends UserState {
-  UserErrorState(this.error);
+class ProductErrorState extends ProductState {
+  ProductErrorState(this.error);
   final String error;
   @override
   List<Object?> get props => [error];
