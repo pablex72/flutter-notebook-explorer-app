@@ -18,7 +18,7 @@ El proyecto utiliza varias dependencias de Flutter y Dart, incluyendo:
 ## Objetivos Cumplidos
 Los siguientes objetivos propuestos fueron cumplidos durante el desarrollo del proyecto:
 
-- **Buscar una lista de productos que coincidan con un criterio de búsqueda**
+- **Buscar una lista de productos que coincidan con un criterio de búsqueda (se uso la marca, ej: HP, Lenovo, etc)**
 - **Mostrar los resultados en una lista con título, precio y miniatura**
 - **Inspeccionar un elemento particular en una vista detallada**
 - **Almacenar una referencia a los últimos 5 elementos visitados en una vista detallada**
