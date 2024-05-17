@@ -1,8 +1,7 @@
 import 'dart:convert';
 
 import 'package:http/http.dart';
-import 'package:flutter_application_notebooks/models/user_model.dart';
-// import 'package:http/http.dart' as http;
+import 'package:flutter_application_notebooks/models/product_model.dart';
 
 class ProductRepository {
   String endpoint = 'https://api.mercadolibre.com/sites/MLU/search?q=notebook#json';

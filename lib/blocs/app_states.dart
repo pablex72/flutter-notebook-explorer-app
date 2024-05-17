@@ -1,11 +1,11 @@
 import 'package:equatable/equatable.dart';
 import 'package:flutter/cupertino.dart';
-import 'package:flutter_application_notebooks/models/user_model.dart';
+import 'package:flutter_application_notebooks/models/product_model.dart';
 
 @immutable
 abstract class ProductState extends Equatable {}
-// the initial state, need each class for each state
-//data loading state
+
+//Data loading state
 class ProductLoadingState extends ProductState {
   @override
   List<Object> get props => [];
